@@ -9,7 +9,8 @@ module JavaEye
       <strong>
         Queries: <a href="#" onclick="$('cache_hits').toggle();return false;">#{cache_stats[:hits].size}</a> / <a href="#" onclick="$('cache_misses').toggle();return false;">#{cache_stats[:misses].size}</a> / #{number_to_percentage((cache_stats[:hits].size.to_f / (cache_stats[:hits].size + cache_stats[:misses].size)) * 100, :precision => 0)} |
         Rows: #{sql_stats[:rows]} |
-        Transfer: #{sprintf("%.1fk", sql_stats[:bytes].to_f / 1024)}
+        Transfer: #{sprintf("%.1fk", sql_stats[:bytes].to_f / 1024)} |
+        <a href="#" onclick="$('db_profiling').remove();return false;" title="close">[X]</a>
       </strong>
       <ul id="cache_hits" style="text-align:left;display:none;"><li>#{cache_stats[:hits].join("</li><li>")}</li></ul>
       <ul id="cache_misses" style="text-align:left;display:none;"><li>#{cache_stats[:misses].join("</li><li>")}</li></ul>

@@ -1,0 +1,21 @@
+= DB Profiling
+
+A simple database query profiling tool, basis of Aaron Patterson's blog:
+http://tenderlovemaking.com/2008/03/13/profiling-database-queries-in-rails/
+Honor to him, bug to me
+ 
+== Installation
+
+The recommended way is that you get the gem:
+
+gem install quake-db_profiling --source http://gems.github.com/
+ 
+== Example usage
+
+add one line to environment.rb:
+
+require 'db_profiling' if RAILS_ENV == "development"
+
+add helper output to the view which you want to profiling, for example, layouts/application.rhtml:
+
+<%= db_profiling_view if RAILS_ENV == "development" %>
