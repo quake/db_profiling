@@ -20,9 +20,9 @@ ActiveRecord::ConnectionAdapters::QueryCache.module_eval do
   
   def cache_sql_with_stats(sql, &block)
     if @query_cache.has_key?(sql)
-      @@stats_hits << sql
+      @@stats_hits << [sql, extract_app_caller]
     else
-      @@stats_misses << sql
+      @@stats_misses << [sql, extract_app_caller]
     end
     bytes = 0
     rows = cache_sql_without_stats(sql, &block)
@@ -37,6 +37,10 @@ ActiveRecord::ConnectionAdapters::QueryCache.module_eval do
     rows
   end
   alias_method_chain :cache_sql, :stats
+
+  def extract_app_caller
+    caller.select {|s| s.index("#{RAILS_ROOT}/app") == 0}
+  end
 end
 
 ActionController::Base.module_eval do
